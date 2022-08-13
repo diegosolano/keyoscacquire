@@ -759,7 +759,7 @@ class Oscilloscope:
 
     ## Building functions to get a trace and various option setting and processing ##
 
-    def get_trace(self, channels=None, verbose_acquistion=None):
+    def get_trace(self, channels=None, verbose_acquistion=None, set_running=True):
         """Obtain one trace with current settings. Will return the values
         of the traces, but alos populate a few attributes, including
         ``_time``, ``_values`` and ``_capture_channels``.
@@ -790,7 +790,7 @@ class Oscilloscope:
             self.verbose_acquistion = verbose_acquistion
         self.set_channels_for_capture(channels=channels)
         # Capture, read and process data
-        self.capture_and_read()
+        self.capture_and_read(set_running)
         self._time, self._values = dataprocessing.process_data(self._raw, self._metadata, self.wav_format,
                                                                verbose_acquistion=self.verbose_acquistion)
         return self._time, self._values, self._capture_channels
